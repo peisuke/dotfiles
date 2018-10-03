@@ -109,18 +109,8 @@ function install_opencv() {
       -D PYTHON3_INCLUDE_DIR=$(python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
       -D PYTHON3_NUMPY_INCLUDE_DIRS=$(python -c "import numpy; print(numpy.get_include())") \
       -D PYTHON3_PACKAGES_PATH=$(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
-      -D PYTHON3_LIBRARY=/home/ubuntu/.pyenv/versions/3.6.1/lib/libpython3.6m.so ..
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-        -D BUILD_EXAMPLES=OFF \
-        -D BUILD_opencv_python2=OFF \
-        -D BUILD_opencv_python3=ON \
-        -D WITH_FFMPEG=ON \
-        -D WITH_CUDA=OFF \
-        -D WITH_GTK=ON \
-        -D WITH_VTK=OFF \
-        -D INSTALL_TESTS=OFF \
-        -D BUILD_EXAMPLES=OFF \
-        .. && make all -j4 && sudo make install && rm -rf opencv
+      -D PYTHON3_LIBRARY=$(python -c "import os;import sysconfig as sc;print(os.path.join(os.path.dirname(sc.get_path('stdlib')), sc.get_config_vars('LDLIBRARY')[0]))") \
+      .. && make all -j4 && sudo make install && rm -rf opencv
 }
 
 function install_cmake () {
