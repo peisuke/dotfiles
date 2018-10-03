@@ -26,6 +26,28 @@ function setup_first () {
     echo "source ${HOME}/dotfiles/init.zsh" >> ~/.zshrc
 }
 
+function install_golang () {
+    export ZSHRC_FILENAME="$HOME/.zshrc"
+
+    sudo add-apt-repository -y ppa:ubuntu-lxc/lxd-stable
+    sudo apt-get -y update
+    sudo apt-get -y install golang
+    if [ ! "`grep 'GOPATH' $ZSHRC_FILENAME`" ]; then
+        echo "write golang config to $ZSHRC_FILENAME"
+        echo "# golang" >> $ZSHRC_FILENAME
+        echo "export GOPATH=$HOME/.go" >> $ZSHRC_FILENAME
+        echo "export PATH=$PATH:$HOME/.go/bin" >> $ZSHRC_FILENAME
+    fi
+}
+
+function install_peco () {
+#     export GOPATH="$HOME/.go"
+#     export PATH=$PATH:$HOME/.go/bin
+#     go get github.com/peco/peco/cmd/peco
+    curl -L https://github.com/peco/peco/releases/download/v0.4.7/peco_linux_amd64.tar.gz | tar zx -C /tmp && \
+    sudo mv /tmp/peco_linux_amd64/peco /usr/local/bin/
+}
+
 function install_neovim () {
     sudo add-apt-repository -y ppa:neovim-ppa/stable
     sudo apt-get update
@@ -196,6 +218,8 @@ read is_setup_cuda
 ret=`check_install ${is_setup_first}`
 if [ ${ret} == 'True' ];then
     setup_first
+    install_golang
+    install_golang
 fi
 ret=`check_install ${is_setup_neovim}`
 if [ ${ret} == 'True' ];then
