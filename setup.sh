@@ -169,9 +169,9 @@ function install_cudnn_7 () {
 
     if [ ! -e 'cudnn.tgz' ]; then
         echo "download cudnn"
-        curl -L -o libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb \
+        curl -L -o libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb \
           https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
-        curl -L -o libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb \
+        curl -L -o libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb \
           https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
     fi
     sudo dpkg -i libcudnn7_7.2.1.38-1+cuda9.0_amd64.deb
