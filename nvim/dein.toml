@@ -9,6 +9,13 @@ repo = 'scrooloose/nerdtree'
 
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
+on_ft = 'python'
+hook_add = '''
+  let g:jedi#use_tabs_not_buffers = 1
+  let g:jedi#popup_select_first = 0
+  let g:jedi#popup_on_dot = 0
+  autocmd FileType python setlocal completeopt-=preview
+'''
 
 [[plugins]]
 repo    = 'vim-airline/vim-airline'
@@ -29,3 +36,8 @@ repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
 repo = 'Lokaltog/vim-easymotion'
+hook_add = '''
+  let g:EasyMotion_do_mapping = 0
+  map <Leader>w <Plug>(easymotion-w)
+  map <Leader>b <Plug>(easymotion-b)
+'''

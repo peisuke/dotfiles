@@ -47,6 +47,7 @@ if has('persistent_undo')
   set undofile
 endif
 
+set noshowmode
 syntax on
 
 filetype plugin indent on
