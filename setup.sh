@@ -219,7 +219,7 @@ ret=`check_install ${is_setup_first}`
 if [ ${ret} == 'True' ];then
     setup_first
     install_golang
-    install_golang
+    install_peco
 fi
 ret=`check_install ${is_setup_neovim}`
 if [ ${ret} == 'True' ];then
