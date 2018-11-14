@@ -144,6 +144,8 @@ function install_cmake () {
 
 function install_docker () {
     curl -sSL https://get.docker.com/ | sh
+    sudo groupadd docker
+    sudo gpasswd -a $USER docker
 }
 
 function install_cuda () {
