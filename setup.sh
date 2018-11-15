@@ -202,6 +202,11 @@ function install_cudnn_7 () {
     sudo dpkg -i libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
 }
 
+function install_cudnn_7 () {
+    cd $SETUP_INSTALL_DIR
+    sh ./chainer_setup.sh
+}
+
 echo -n "Set up first? [Y/n] "
 read is_setup_first
 echo -n "Set up neovim[Y/n] "
@@ -248,4 +253,8 @@ ret=`check_install ${is_setup_cuda}`
 if [ ${ret} == 'True' ];then
     install_cuda_9_0_1604
     install_cudnn_7
+fi
+ret=`check_install ${is_setup_chainer}`
+if [ ${ret} == 'True' ];then
+    install_chainer_5_0_0
 fi
