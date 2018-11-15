@@ -202,7 +202,7 @@ function install_cudnn_7 () {
     sudo dpkg -i libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
 }
 
-function install_cudnn_7 () {
+function install_chainer_5_0_0 () {
     cd $SETUP_INSTALL_DIR
     sh ./chainer_setup.sh
 }
