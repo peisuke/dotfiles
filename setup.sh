@@ -27,7 +27,7 @@ function setup_first () {
 }
 
 function install_golang () {
-    export ZSHRC_FILENAME="$HOME/.zshrc"
+    export ZSHRC_FILENAME="$HOME/.zshenv"
 
     sudo add-apt-repository -y ppa:ubuntu-lxc/lxd-stable
     sudo apt-get -y update
@@ -55,7 +55,7 @@ function install_neovim () {
 }
 
 function install_pyenv () {
-    export ZSHRC_FILENAME="$HOME/.zshrc"
+    export ZSHRC_FILENAME="$HOME/.zshenv"
     if [ ! -e ${HOME}/.pyenv ]; then
         git clone https://github.com/yyuu/pyenv.git ${HOME}/.pyenv
         echo 'export PYENV_ROOT="$HOME/.pyenv"' >> $ZSHRC_FILENAME
@@ -162,7 +162,7 @@ function install_cuda () {
 }
 
 function install_cuda_9_0_1604 () {
-    export ZSHRC_FILENAME="${HOME}/.zshrc"
+    export ZSHRC_FILENAME="${HOME}/.zshenv"
 
     cd $SETUP_INSTALL_DIR
     export REPOS='cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb'
@@ -176,7 +176,7 @@ function install_cuda_9_0_1604 () {
 
 
 function install_cuda_10_0_1604 () {
-    export ZSHRC_FILENAME="${HOME}/.zshrc"
+    export ZSHRC_FILENAME="${HOME}/.zshenv"
 
     cd $SETUP_INSTALL_DIR
     export REPOS='cuda-repo-ubuntu1604-10-0-local-10.0.130-410.48_1.0-1_amd64'
