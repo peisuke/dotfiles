@@ -221,6 +221,8 @@ echo -n "Set up opencv[Y/n] "
 read is_setup_opencv
 echo -n "Set up cuda[Y/n] "
 read is_setup_cuda 
+echo -n "Set up chainer[Y/n] "
+read is_setup_chainer 
 
 ret=`check_install ${is_setup_first}`
 if [ ${ret} == 'True' ];then
