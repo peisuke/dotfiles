@@ -15,7 +15,7 @@ git clone -b v2.3.7-1 https://github.com/NVIDIA/nccl.git
 cd nccl
 make -j src.build
 make pkg.debian.build
-sudo apt install build-essential devscripts debhelper
+sudo apt -y install build-essential devscripts debhelper
 make pkg.debian.build
 sudo dpkg -i build/pkg/deb/libnccl*
 cd ..
