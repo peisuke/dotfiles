@@ -225,11 +225,6 @@ function install_chainer_5_0_0 () {
     sudo dpkg -i build/pkg/deb/libnccl*
     cd ..
     
-    # install python by using pyenv
-    export PYENV_PYTHON_VERSION="3.6.1"
-    env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install $PYENV_PYTHON_VERSION
-    pyenv global $PYENV_PYTHON_VERSION
-    
     pip install mpi4py==3.0.0
     pip install chainer==5.0.0 cupy==5.0.0
 }
