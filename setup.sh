@@ -165,13 +165,19 @@ function install_cuda_9_0_1604 () {
     export ZSHRC_FILENAME="${HOME}/.zshenv"
 
     cd $SETUP_INSTALL_DIR
-    export REPOS='cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb'
-    if [ ! -e "${REPOS}" ]; then
-        echo "download cuda to $SETUP_INSTALL_DIR"
-        wget https://developer.nvidia.com/compute/cuda/9.0/prod/local_installers/${REPOS}
-    fi
+    # install NVIDIA driver
+    wget http://jp.download.nvidia.com/XFree86/Linux-x86_64/396.54/NVIDIA-Linux-x86_64-396.54.run
+    sudo sh NVIDIA-Linux-x86_64-396.54.run --silent
+    
+    sudo apt-get install -y nvidia-cuda-toolkit
+    
+    # export REPOS='cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb'
+    # if [ ! -e "${REPOS}" ]; then
+    #     echo "download cuda to $SETUP_INSTALL_DIR"
+    #     wget https://developer.nvidia.com/compute/cuda/9.0/prod/local_installers/${REPOS}
+    # fi
 
-    install_cuda
+    # install_cuda
 }
 
 
@@ -205,27 +211,27 @@ function install_cudnn_7 () {
 function install_chainer_5_0_0 () {
     cd $SETUP_INSTALL_DIR
 
-    mkdir chainer_setup
-    cd chainer_setup
-    wget https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.3.tar.gz
-    tar xzvf openmpi-3.1.3.tar.gz
-    rm openmpi-3.1.3.tar.gz
-    cd openmpi-3.1.3
-    ./configure --with-cuda
-    make -j4
-    sudo make install
-    cd ..
+    # mkdir chainer_setup
+    # cd chainer_setup
+    # wget https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.3.tar.gz
+    # tar xzvf openmpi-3.1.3.tar.gz
+    # rm openmpi-3.1.3.tar.gz
+    # cd openmpi-3.1.3
+    # ./configure --with-cuda
+    # make -j4
+    # sudo make install
+    # cd ..
+    # 
+    # git clone -b v2.3.7-1 https://github.com/NVIDIA/nccl.git
+    # cd nccl
+    # make -j src.build
+    # make pkg.debian.build
+    # sudo apt -y install build-essential devscripts debhelper
+    # make pkg.debian.build
+    # sudo dpkg -i build/pkg/deb/libnccl*
+    # cd ..
     
-    git clone -b v2.3.7-1 https://github.com/NVIDIA/nccl.git
-    cd nccl
-    make -j src.build
-    make pkg.debian.build
-    sudo apt -y install build-essential devscripts debhelper
-    make pkg.debian.build
-    sudo dpkg -i build/pkg/deb/libnccl*
-    cd ..
-    
-    pip install mpi4py==3.0.0
+    # pip install mpi4py==3.0.0
     pip install chainer==5.0.0 cupy==5.0.0
 }
 
