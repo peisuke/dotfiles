@@ -148,6 +148,14 @@ function install_docker () {
     sudo gpasswd -a $USER docker
 }
 
+function install_gpu_driver () {
+    export ZSHRC_FILENAME="${HOME}/.zshenv"
+
+    cd $SETUP_INSTALL_DIR
+    wget http://jp.download.nvidia.com/XFree86/Linux-x86_64/396.54/NVIDIA-Linux-x86_64-396.54.run
+    sudo sh NVIDIA-Linux-x86_64-396.54.run --silent
+}
+
 function install_cuda () {
     sudo dpkg -i ${REPOS}
     sudo apt-get update
@@ -275,6 +283,7 @@ if [ ${ret} == 'True' ];then
 fi
 ret=`check_install ${is_setup_cuda}`
 if [ ${ret} == 'True' ];then
+    install_gpu_driver
     install_cuda_9_0_1604
     install_cudnn_7
 fi
