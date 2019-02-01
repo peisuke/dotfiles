@@ -148,6 +148,9 @@ function install_docker () {
     sudo gpasswd -a $USER docker
 }
 
+function install_nvidia_docker2 () {
+}
+
 function install_gpu_driver () {
     export ZSHRC_FILENAME="${HOME}/.zshenv"
 
@@ -196,7 +199,7 @@ function install_cuda_10_0_1604 () {
     install_cuda
 }
 
-function install_cudnn_7 () {
+function install_cuda_9_cudnn_7 () {
     cd $SETUP_INSTALL_DIR
 
     if [ ! -e 'cudnn.tgz' ]; then
@@ -210,11 +213,25 @@ function install_cudnn_7 () {
     sudo dpkg -i libcudnn7-dev_7.2.1.38-1+cuda9.0_amd64.deb
 }
 
-function install_chainer_5_0_0 () {
+function install_cuda_10_cudnn_7 () {
     cd $SETUP_INSTALL_DIR
 
-    mkdir chainer_setup
-    cd chainer_setup
+    if [ ! -e 'cudnn.tgz' ]; then
+        echo "download cudnn"
+        curl -L -o libcudnn7_7.4.2.24-1+cuda10.0_amd64.deb \
+          https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7_7.4.2.24-1+cuda10.0_amd64.deb
+        curl -L -o libcudnn7-dev_7.4.2.24-1+cuda10.0_amd64.deb \
+          https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7-dev_7.4.2.24-1+cuda10.0_amd64.deb
+    fi
+    sudo dpkg -i libcudnn7_7.4.2.24-1+cuda10.0_amd64.deb
+    sudo dpkg -i libcudnn7-dev_7.4.2.24-1+cuda10.0_amd64.deb
+}
+
+function install_mpi () {
+    cd $SETUP_INSTALL_DIR
+
+    mkdir mpi_setup
+    cd mpi_setup
     wget https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.3.tar.gz
     tar xzvf openmpi-3.1.3.tar.gz
     rm openmpi-3.1.3.tar.gz
@@ -234,7 +251,6 @@ function install_chainer_5_0_0 () {
     cd ..
     
     pip install mpi4py==3.0.0
-    pip install chainer==5.0.0 cupy==5.0.0
 }
 
 echo -n "Set up first? [Y/n] "
@@ -251,8 +267,10 @@ echo -n "Set up opencv[Y/n] "
 read is_setup_opencv
 echo -n "Set up cuda[Y/n] "
 read is_setup_cuda 
-echo -n "Set up chainer[Y/n] "
-read is_setup_chainer 
+echo -n "Set up nvidia-docker2[Y/n] "
+read is_setup_nvidia_docker2
+echo -n "Set up mpi[Y/n] "
+read is_setup_mpi 
 
 ret=`check_install ${is_setup_first}`
 if [ ${ret} == 'True' ];then
@@ -284,10 +302,14 @@ fi
 ret=`check_install ${is_setup_cuda}`
 if [ ${ret} == 'True' ];then
     install_gpu_driver
-    install_cuda_9_0_1604
-    install_cudnn_7
+    install_cuda_10_0_1604
+    install_cuda_10_cudnn_7
 fi
-ret=`check_install ${is_setup_chainer}`
+ret=`check_install ${is_setup_nvidia_docker2}`
 if [ ${ret} == 'True' ];then
-    install_chainer_5_0_0
+    install_nvidia_docker2
+fi
+ret=`check_install ${is_setup_mpi}`
+if [ ${ret} == 'True' ];then
+    install_mpi
 fi
